@@ -43,6 +43,7 @@ var layerLabels;
   //load AUS district boundary AGO service
   L.esri.featureLayer({
     url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/AUS_District_Boundary_Ln/FeatureServer/0',
+    useCors: true,
     style: function (feature) {
         return {color: '#000000', weight: 3};
     }
