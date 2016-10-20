@@ -42,8 +42,7 @@ var layerLabels;
   
   //load AUS district boundary AGO service
   L.esri.featureLayer({
-    url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/AUS_District_Boundary_Ln/FeatureServer/0',
-    useCors: true,
+    url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/AUS_District_Boundary_Ln/FeatureServer/0',
     style: function (feature) {
         return {color: '#000000', weight: 3};
     }
@@ -59,7 +58,7 @@ var layerLabels;
 
     //load aus projects from project tracker ago feature service
     L.esri.featureLayer({
-        url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
+        url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
         where: "DISTRICT_NAME = 'Austin'",
         style: function (feature) {
             if(feature.properties.PRJ_STATUS === 'Construction Scheduled'){
