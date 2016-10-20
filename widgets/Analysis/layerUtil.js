@@ -1,5 +1,0 @@
-// All material copyright ESRI, All Rights Reserved, unless otherwise specified.
-// See http://js.arcgis.com/3.15/esri/copyright.txt and http://www.arcgis.com/apps/webappbuilder/copyright.txt for details.
-//>>built
-define("dojo/_base/array dojo/promise/all dojo/Deferred esri/layers/FeatureLayer esri/layers/GeoRSSLayer jimu/LayerInfos/LayerInfos".split(" "),function(d,k,l,m,n,p){return{getLayerObjects:function(h){var e=new l;p.getInstance(h,h.itemInfo).then(function(f){var g=[];f.traversal(function(a){g.push(a)});f=d.map(g,function(a){return a.getLayerType().then(function(c){"GeoRSSLayer"===c&&(a.isLeaf()||d.forEach(a.getSubLayers(),function(b){b.layerObject.name||(b.layerObject.name=b.title)}));return a.getLayerObject()})});
-return k(f).then(function(a){var c=[];d.forEach(a,function(b,a){if(b instanceof m&&"esri.layers.StreamLayer"!==b.declaredClass||b instanceof n)b.id=b.id||g[a].id,c.push(b)});e.resolve(c)})},function(){e.resolve([])});return e}}});

@@ -29,6 +29,7 @@
 </head>
 
 <body>
+    <script src="https://unpkg.com/esri-leaflet-vector@1.0.3"></script>
 
     <div id="title" class="container-fluid">
         <img src="images/White_LOGO_TxDOT.png" class="txdot-img" alt="TxDOT" height="59" width="84">
@@ -37,23 +38,26 @@
 
     <div id="map"></div>
     
-    <div id="info-pane" class="leaflet-bar">Hover to inspect</div>
+    <div class="leaflet-container">
+        <button type="button" class="btn btn-default">Home</button>
+    </div>
     
     <div id="basemaps-wrapper" class="leaflet-bar">
         <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+            <option value="Newspaper">Newspaper</option>
+            <option value="Spring">Spring</option>
+            <option value="MidCentury">Mid-Century</option>
             <option value="Topographic">Topographic</option>
-            <option value="Streets">Streets</option>
-            <option value="NationalGeographic">National Geographic</option>
-            <option value="Terrain">Terrain</option>
             <option value="Gray">Gray</option>
             <option value="DarkGray">Dark Gray</option>
-            <option value="USATopo">USA Topo</option>
-            <option value="Imagery">Imagery</option>
-            <option value="ShadedRelief">Shaded Relief</option>
+            <option value="Navigation">Navigation</option>
+            <option value="Streets">Streets</option>
+            <option value="StreetsNight">Streets Night</option>
+            <option value="StreetsRelief">Streets Relief</option>
         </select>
     </div>
 
-    <script src="js/map.js"></script>    
+    <script src="js/map-vector.js"></script>    
 
 </body>
 </html>
