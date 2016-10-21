@@ -1,56 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset=utf-8 />
+    <meta charset=utf-8 />
   
-  <title>TxDOT AUS</title>
+    <title>TxDOT AUS</title>
   
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   
-  <!-- Load jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Load Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <!-- Load Leaflet from CDN-->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
-  <!-- Load Esri Leaflet from CDN -->
-  <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
-  <!-- Load my content -->
-  <link rel="stylesheet" href="style/style.css" />
-  <!-- Load Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
-  <!-- Load local leaflet zoomhome content -->
-  <link rel="stylesheet" href="style/leaflet.zoomhome.css"/>
-  <script src="js/leaflet.zoomhome.min.js"></script>
-  <!-- Load Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <!-- Load jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Load Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
+    <!-- Load my content -->
+    <link rel="stylesheet" href="style/style.css" />
+    <!-- Load Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <!-- Load local leaflet zoomhome content -->
+    <link rel="stylesheet" href="style/leaflet.zoomhome.css"/>
+    <script src="js/leaflet.zoomhome.min.js"></script>
+    <!-- Load Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <!-- Load ESRI Leaflet Geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.1.4/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/esri-leaflet-geocoder@2.1.4"></script>
 </head>
 
 <body>
-
-    <div id="title" class="container-fluid shrink">
+    
+    <div id="title" class="container-fluid">
         <img src="images/White_LOGO_TxDOT.png" class="txdot-img" alt="TxDOT" height="59" width="84">
         <h2 class="text-center"><strong>Austin District - Transportation Planning &amp; Development</strong></h2>
     </div>
 
     <div id="map"></div>
     
+    <div id="toc" class="leaflet-bar container-fluid">
+        
+    </div>
+    
+    <div id="query" class="leaflet-bar">
+            <select id="county">
+                <!-- make sure to encase string values in single quotes for valid sql -->
+                <option value='#'>Any</option>
+                <option value="county=">Bastrop</option>
+                <option value="county=">Blanco</option>
+                <option value="county=">Burnet</option>
+                <option value="county=">Caldwell</option>
+                <option value="county=">Gillespie</option>
+                <option value="county=">Hays</option>
+                <option value="county=">Lee</option>
+                <option value="county=">Llano</option>
+                <option value="county=">Mason</option>
+                <option value="county=">Travis</option>
+                <option value="county=">Williamson</option>
+            </select>
+    </div>
 <!--    <div id="info-pane" class="leaflet-bar">Hover to inspect</div>  -->
     
     <div id="basemaps-wrapper" class="leaflet-bar">
-        <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
-            <option value="Topographic">Topographic</option>
-            <option value="Streets">Streets</option>
-            <option value="NationalGeographic">National Geographic</option>
-            <option value="Terrain">Terrain</option>
-            <option value="Gray">Gray</option>
-            <option value="DarkGray">Dark Gray</option>
-            <option value="USATopo">USA Topo</option>
-            <option value="Imagery">Imagery</option>
-            <option value="ShadedRelief">Shaded Relief</option>
-        </select>
+            <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+                <option value="Topographic">Topographic</option>
+                <option value="Streets">Streets</option>
+                <option value="NationalGeographic">National Geographic</option>
+                <option value="Terrain">Terrain</option>
+                <option value="Gray">Gray</option>
+                <option value="DarkGray">Dark Gray</option>
+                <option value="USATopo">USA Topo</option>
+                <option value="Imagery">Imagery</option>
+                <option value="ShadedRelief">Shaded Relief</option>
+            </select>
     </div>
 
     <script src="js/map.js"></script>    
