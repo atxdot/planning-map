@@ -1,12 +1,16 @@
+//create map
 var map = L.map('map', {zoomControl: false}).setView([30.417, -98.120], 9);
 
+//load custom txdot basemap as initial base (not included in basemap changer) 
 var layer = L.esri.tiledMapLayer({
                 url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
             }).addTo(map);
 
+//leaflet plugin custom zoom in/out home tool
 var zoomHome = L.Control.zoomHome();
     zoomHome.addTo(map);
 
+//esri geocoder control
 var searchControl = L.esri.Geocoding.geosearch().addTo(map);
 
 var results = L.layerGroup().addTo(map);
@@ -18,6 +22,7 @@ searchControl.on('results', function(data){
     }
   });
 
+//basemap changer control - top right
 function setBasemap(basemap) {
     if (layer) {
       map.removeLayer(layer);
@@ -51,16 +56,15 @@ function changeBasemap(basemaps){
     setBasemap(basemap);
   }
   
-//load AUS district boundary AGO service
-L.esri.featureLayer({
-    url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/AUS_District_Boundary_Ln/FeatureServer/0',
-    style: function (feature) {
-        return {color: '#000000', weight: 3};
-    }
-  }).addTo(map);
+//load AUS district boundary AGO feature service
+var ausBounds = L.esri.featureLayer({
+                url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/AUS_District_Boundary_Ln/FeatureServer/0',
+                style: function (feature) {
+                    return {color: '#000000', weight: 3};
+                    }
+                }).addTo(map);
 
-var layerLabels;
-
+//load AUS TxDOT projects AGO feature service - filter for AUS & create proper symbology
 var ausProjects = L.esri.featureLayer({
                     url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
                     where: "DISTRICT_NAME = 'Austin'",
@@ -79,9 +83,26 @@ var ausProjects = L.esri.featureLayer({
                       }
                     }).addTo(map);
 
+//popup box for ausProjects
 ausProjects.bindPopup(function (evt) {
     return L.Util.template('<p><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>CSJ: </b>{CONTROL_SECT_JOB}</p>', evt.feature.properties);
 })
+
+// listen for when all features have been retrieved from the server
+  ausBounds.once("load", function(evt) {
+    // create a new empty Leaflet bounds object
+    var bounds = L.latLngBounds([]);
+    // loop through the features returned by the server
+    ausBounds.eachFeature(function(layer) {
+      // get the bounds of an individual feature
+      var layerBounds = layer.getBounds();
+      // extend the bounds of the collection to fit the bounds of the new feature
+      bounds.extend(layerBounds);
+    });
+
+    // once we've looped through all the features, zoom the map to the extent of the collection
+    map.fitBounds(bounds);
+  });
 
 var county = document.getElementById('county');
 
