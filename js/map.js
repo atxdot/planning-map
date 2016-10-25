@@ -11,7 +11,20 @@ var zoomHome = L.Control.zoomHome();
     zoomHome.addTo(map);
 
 //esri geocoder control
-var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+var arcgisOnline = L.esri.Geocoding.arcgisOnlineProvider();
+
+var searchControl = L.esri.Geocoding.geosearch({
+    providers: [
+      arcgisOnline,
+      L.esri.Geocoding.featureLayerProvider({
+        url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
+        searchFields: ['CONTROL_SECT_JOB'],
+        formatSuggestion: function(feature){
+          return feature.properties.HIGHWAY_NUMBER + ' - ' + feature.properties.CONTROL_SECT_JOB;
+        }
+      })
+    ]
+  }).addTo(map);
 
 var results = L.layerGroup().addTo(map);
 
@@ -100,12 +113,12 @@ ausProjects.bindPopup(function (evt) {
       bounds.extend(layerBounds);
     });
 
-    // once we've looped through all the features, zoom the map to the extent of the collection
+    //zoom the map to the extent of the collection
     map.fitBounds(bounds);
   });
 
 var county = document.getElementById('county');
 
 county.addEventListener('change', function(){
-    stops.setWhere(county.value);
+    ausProjects.setWhere("DISTRICT_NAME = 'Austin' & COUNTY_NUMBER = " + county.value);
 });
