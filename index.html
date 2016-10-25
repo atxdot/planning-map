@@ -39,29 +39,25 @@
     </div>
 
     <div id="map"></div>
-    
-    <!-- <div id="toc" class="leaflet-bar container-fluid"> -->
         
     </div>
     
     <div id="query" class="leaflet-bar">
             <select id="county">
-                <!-- make sure to encase string values in single quotes for valid sql -->
-                <option value='#'>Any</option>
-                <option value="county=11">Bastrop</option>
-                <option value="county=16">Blanco</option>
-                <option value="county=27">Burnet</option>
-                <option value="county=28">Caldwell</option>
-                <option value="county=87">Gillespie</option>
-                <option value="county=106">Hays</option>
-                <option value="county=144">Lee</option>
-                <option value="county=150">Llano</option>
-                <option value="county=157">Mason</option>
-                <option value="county=227">Travis</option>
-                <option value="county=246">Williamson</option>
+                <option value="DISTRICT_NAME = 'Austin'">Any</option>
+                <option value="COUNTY_NAME='Bastrop'">Bastrop</option>
+                <option value="COUNTY_NAME='Blanco'">Blanco</option>
+                <option value="COUNTY_NAME='Burnet'">Burnet</option>
+                <option value="COUNTY_NAME='Caldwell'">Caldwell</option>
+                <option value="COUNTY_NAME='Gillespie'">Gillespie</option>
+                <option value="COUNTY_NAME='Hays'">Hays</option>
+                <option value="COUNTY_NAME='Lee'">Lee</option>
+                <option value="COUNTY_NAME='Llano'">Llano</option>
+                <option value="COUNTY_NAME='Mason'">Mason</option>
+                <option value="COUNTY_NAME='Travis'">Travis</option>
+                <option value="COUNTY_NAME='Williamson'">Williamson</option>
             </select>
     </div>
-<!--    <div id="info-pane" class="leaflet-bar">Hover to inspect</div>  -->
     
     <div id="basemaps-wrapper" class="leaflet-bar">
             <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">

@@ -1,5 +1,5 @@
 //create map
-var map = L.map('map', {zoomControl: false}).setView([30.417, -98.120], 9);
+var map = L.map('map', {zoomControl: false}).setView([30.417, -98.120], 8);
 
 //load custom txdot basemap as initial base (not included in basemap changer) 
 var layer = L.esri.tiledMapLayer({
@@ -18,7 +18,7 @@ var searchControl = L.esri.Geocoding.geosearch({
       arcgisOnline,
       L.esri.Geocoding.featureLayerProvider({
         url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
-        searchFields: ['CONTROL_SECT_JOB'],
+        searchFields: ['CONTROL_SECT_JOB', 'HIGHWAY_NUMBER'],
         formatSuggestion: function(feature){
           return feature.properties.HIGHWAY_NUMBER + ' - ' + feature.properties.CONTROL_SECT_JOB;
         }
@@ -35,6 +35,11 @@ searchControl.on('results', function(data){
     }
   });
 
+//osm variable
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
+});
+
 //basemap changer control - top right
 function setBasemap(basemap) {
     if (layer) {
@@ -49,7 +54,8 @@ function setBasemap(basemap) {
       map.removeLayer(layerLabels);
     }
 
-    if (basemap === 'Topographic'
+    if (basemap === ''
+     || basemap === 'Topographic'
      || basemap === 'Streets'
      || basemap === 'NationalGeographic'
      || basemap === 'Terrain'
@@ -99,26 +105,16 @@ var ausProjects = L.esri.featureLayer({
 //popup box for ausProjects
 ausProjects.bindPopup(function (evt) {
     return L.Util.template('<p><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>CSJ: </b>{CONTROL_SECT_JOB}</p>', evt.feature.properties);
-})
+});
 
-// listen for when all features have been retrieved from the server
-  ausBounds.once("load", function(evt) {
-    // create a new empty Leaflet bounds object
-    var bounds = L.latLngBounds([]);
-    // loop through the features returned by the server
-    ausBounds.eachFeature(function(layer) {
-      // get the bounds of an individual feature
-      var layerBounds = layer.getBounds();
-      // extend the bounds of the collection to fit the bounds of the new feature
-      bounds.extend(layerBounds);
-    });
+//zoom to bounds of ausBounds
+ausBounds.query().bounds(function (error, latlngbounds) {
+    map.fitBounds(latlngbounds);
+});
 
-    //zoom the map to the extent of the collection
-    map.fitBounds(bounds);
-  });
-
+//filter by county control
 var county = document.getElementById('county');
 
 county.addEventListener('change', function(){
-    ausProjects.setWhere("DISTRICT_NAME = 'Austin' & COUNTY_NUMBER = " + county.value);
+    ausProjects.setWhere(county.value);
 });
