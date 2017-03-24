@@ -5,14 +5,10 @@
   
     <title>TxDOT AUS</title>
   
-    <meta name='viewport' content="width=device-width, initial-scale=1" />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   
     <!-- Load jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- Load jQuery UI -->
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<!-- Load jQuery UI Touch Punch -->
-	<script src="js/jquery.ui.touch-punch.min.js"></script>
     <!-- Load Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -50,7 +46,6 @@
     </div>
     
     <div id="query" class="leaflet-bar">
-		<h6><b>County Filter :</b></h6>
             <select id="county">
                 <option value="DISTRICT_NAME = 'Austin'">Any</option>
                 <option value="COUNTY_NAME='Bastrop'">Bastrop</option>
@@ -66,30 +61,22 @@
                 <option value="COUNTY_NAME='Williamson'">Williamson</option>
             </select>
     </div>
-	
-	<div id="toc" class="container-fluid">
-		<div id="arrow">&#9656;</div>
-		
-		<div id="vert">
-			<h5>L</h5>
-			<h5>A</h5>
-			<h5>Y</h5>
-			<h5>E</h5>
-			<h5>R</h5>
-			<h5>S</h5>
-		</div>
-		
-		<div id="toc-content" class="container">
-			<input type="checkbox" name="layer" value="ausHilite" checked="checked"> AUS Boundary Hilite<br>
-			<input type="checkbox" name="layer" value="ausProjects"> TxDOT Projects<br>
-			<input type="checkbox" name="layer" value=""> Layer 3<br>
-			<input type="checkbox" name="layer" value=""> Layer 4<br>
-			<br>
-			<input type="radio" name="basemap" value="spm" checked="checked"> Statewide Planning Map<br>
-			<input type="radio" name="basemap" value="osm"> OpenStreetMap<br>
-		</div>
-	</div>
+    
+    <div id="basemaps-wrapper" class="leaflet-bar">
+            <select name="basemaps" id="basemaps" onChange="changeBasemap(basemaps)">
+                <option value="Topographic">Topographic</option>
+                <option value="Streets">Streets</option>
+                <option value="NationalGeographic">National Geographic</option>
+                <option value="Terrain">Terrain</option>
+                <option value="Gray">Gray</option>
+                <option value="DarkGray">Dark Gray</option>
+                <option value="USATopo">USA Topo</option>
+                <option value="Imagery">Imagery</option>
+                <option value="ShadedRelief">Shaded Relief</option>
+            </select>
+    </div>
 
-    <script src="js/map.js"></script>
+    <script src="js/map.js"></script>    
+
 </body>
 </html>

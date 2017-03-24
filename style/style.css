@@ -7,6 +7,8 @@ html,body { margin: 0; padding: 0; }
     height: 70px; 
     width: 100%; 
     background-color: #14385c;
+	border: 2px solid gray;
+	border-radius: 5px;
 }
 
 h2 {
@@ -15,50 +17,64 @@ h2 {
     color: #ffffff;
 }
 
-#basemaps-wrapper {
-    position: absolute;
-    top: 80px;
-    right: 10px;
-    z-index: 400;
-    background: white;
-    padding: 10px 5px 5px 5px;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 14;
-}
-
-#basemaps { 
-    margin-bottom: 5px;
-}
-
 .txdot-img {
     float: left;
     padding-top: 5px;
 }
 
 #query {
+	color: white;
     position: absolute;
     top: 80px;
-    right: 200px;
+    right: 10px;
     z-index: 400;
-    background: white;
-    padding: 10px 5px 5px 5px;
+    background: #14385c;
+	border: 2px solid gray;
+	border-radius: 5px;
+    padding: 5px 5px 5px 5px;
     font-family: 'Ubuntu', sans-serif;
     font-size: 14;
+	box-shadow: 3px 3px 5px #000;
 }
 
-#county { margin-bottom: 5px; }
+#county { 
+	color: black;
+	margin-bottom: 5px; 
+}
+
+#arrow {
+	font-size: 35px;
+	color: white;
+	cursor: pointer;
+	position: relative;
+	left: -7px;
+}
+
+#toc-content{
+	left: 5px;
+	color: white;
+	text-align: left;
+	display: none;
+}
+
+#vert {
+	color: white;
+}
 
 #toc {
     position: absolute;
-    top: 205px;
+    top: 200px;
     left: 10px;
     z-index: 400;
-    background: white;
-    width: 250px;
-    height: 400px;
+    background: #14385c;
+	border: 2px solid gray;
+	border-radius: 5px;
+    width: 30px;
+    height: 300px;
     padding: 10px;
     font-family: 'Ubuntu', sans-serif;
     font-size: 14;
+	box-shadow: 3px 3px 5px #000;
 }
 
 @media screen and (max-width: 1000px) {
