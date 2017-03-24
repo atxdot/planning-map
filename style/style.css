@@ -43,7 +43,7 @@ h2 {
 }
 
 #arrow {
-	font-size: 35px;
+	font-size: 30px;
 	color: white;
 	cursor: pointer;
 	position: relative;
@@ -70,7 +70,7 @@ h2 {
 	border: 2px solid gray;
 	border-radius: 5px;
     width: 30px;
-    height: 300px;
+    height: 215px;
     padding: 10px;
     font-family: 'Ubuntu', sans-serif;
     font-size: 14;

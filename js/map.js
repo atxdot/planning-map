@@ -85,11 +85,11 @@ $(document).ready(function(){
 	$('#toc').draggable();
 	$('#arrow').click(function(){
 		if($('#toc').css('width')=='30px'){
-			$('#toc').animate({width:'250px'}, 500, minusOne);
+			$('#toc').animate({width:'250px', height:'300px'}, 500, minusOne);
 			$('#toc-content').show();
 			$('#vert').hide();
 		}else{
-			$('#toc').animate({width:'30px'}, 500, plusOne);
+			$('#toc').animate({width:'30px', height:'215px'}, 500, plusOne);
 			$('#toc-content').hide();
 			$('#vert').show();
 		}
