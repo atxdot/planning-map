@@ -46,28 +46,8 @@
     </div>
 
     <div id="map"></div>
-        
-    </div>
-    
-    <div id="query" class="leaflet-bar">
-		<h6 align="center">County Filter :</h6>
-            <select id="county">
-                <option value="DISTRICT_NAME = 'Austin'">Any</option>
-                <option value="COUNTY_NAME='Bastrop'">Bastrop</option>
-                <option value="COUNTY_NAME='Blanco'">Blanco</option>
-                <option value="COUNTY_NAME='Burnet'">Burnet</option>
-                <option value="COUNTY_NAME='Caldwell'">Caldwell</option>
-                <option value="COUNTY_NAME='Gillespie'">Gillespie</option>
-                <option value="COUNTY_NAME='Hays'">Hays</option>
-                <option value="COUNTY_NAME='Lee'">Lee</option>
-                <option value="COUNTY_NAME='Llano'">Llano</option>
-                <option value="COUNTY_NAME='Mason'">Mason</option>
-                <option value="COUNTY_NAME='Travis'">Travis</option>
-                <option value="COUNTY_NAME='Williamson'">Williamson</option>
-            </select>
-    </div>
 	
-	<div id="toc" class="container-fluid">
+	<div id="toc" class="leaflet-bar">
 		<div id="arrow">&#9656;</div>
 		<div id="vert">
 			<h6>L</h6>
@@ -78,17 +58,12 @@
 			<h6>S</h6>
 		</div>
 		
-		<div id="layer-control" class="container">
+		<div id="layer-control" class="container-fluid">
 			<h6><u>Layers</u></h6>
-				<input type="checkbox" data-layer="ausHilite" checked="checked"> AUS Boundary<br>
-				<input type="checkbox" data-layer="ausProjects"> TxDOT Projects<br>
-				<input type="checkbox" data-layer=""> Layer 3<br>
-				<input type="checkbox" data-layer=""> Layer 4<br>
-			<h6><u>Basemaps</u></h6>
-				<input type="radio" name="baseMaps" value="spm" checked="checked"> Statewide Planning Map<br>
-				<input type="radio" name="baseMaps" value="osm"> OpenStreetMap<br>
-				<input type="radio" name="baseMaps" value="positron"> Carto Positron<br>
-				<input type="radio" name="baseMaps" value="darkmatter"> Carto Dark Matter<br>
+				<input type="checkbox" id="ausHilite" checked="checked"> AUS Boundary<br>
+				<input type="checkbox" id="ausProjects"> AUS Projects (All)<br>
+				<input type="checkbox" id=""> Layer 3<br>
+				<input type="checkbox" id=""> Layer 4<br>
 		</div>
 	</div>
 

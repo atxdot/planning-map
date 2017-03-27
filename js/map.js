@@ -60,23 +60,18 @@ var ausProjects = L.esri.featureLayer({
 
 //popup box for ausProjects
 ausProjects.bindPopup(function (evt) {
-    return L.Util.template('<p><b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}</p>', evt.feature.properties);
+    return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}', evt.feature.properties);
 });
 
 //filter by county control
-var county = document.getElementById('county');
+/*var county = document.getElementById('county');
 
 county.addEventListener('change', function(){
     ausProjects.setWhere(county.value);
 });
+*/
 
-//layer control
-/*
-var overlayMaps = {
-	"TxDOT Projects": ausProjects,
-	"AUS Hilite": ausHilite
-};
-
+//basemap layer control
 var baseMaps = {
 	"TxDOT SPM": spm,
 	"OpenStreetMap": osm,
@@ -84,16 +79,16 @@ var baseMaps = {
 	"Dark Matter": darkmatter
 };
 
-L.control.layers(baseMaps, overlayMaps).addTo(map);
-*/
-//jquery for table of contents pop out - layers
+L.control.layers(baseMaps).addTo(map);
+
+//jquery for table of contents - custom layer control
 function plusOne(){
-			$('#arrow').css({transform:'scaleX(1)'});
-		}
+	$('#arrow').css({transform:'scaleX(1)'});
+}
 		
 function minusOne(){
-			$('#arrow').css({transform:'scaleX(-1)'});
-		}
+	$('#arrow').css({transform:'scaleX(-1)'});
+}
 		
 $(document).ready(function(){
 	$('#toc').draggable();
@@ -108,23 +103,15 @@ $(document).ready(function(){
 			$('#vert').show();
 		}
     });
-	$('#layer-control input[type="checkbox"]').on('change', function() {
-		var checkbox = $(this);
-		var layer = checkbox.data().layer;
-		//toggle the layer
-		if (checkbox.is('checked')) {
-			map.addLayer(ausProjects);
-		} else {
-			map.removeLayer(ausProjects);
-		}
-	})
+	
+    $('#ausProjects').change(function() {
+        if($(this.checked)) {
+            var returnVal = ausProjects.addTo(map);
+            $(this).prop('checked', returnVal);
+        }else{
+			var removeVal = map.removeLayer(ausProjects);
+			$(this).prop(removeVal);
+		}       
+    });
 });
 
-//input checkbox/radio button in layers popout
-/*var bm = document.getElementById()
-*/
-/*
-function onClickHandler(){
-	var chk=document.getElementById("box").value;
-}
-*/
