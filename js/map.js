@@ -71,6 +71,7 @@ county.addEventListener('change', function(){
 });
 
 //layer control
+/*
 var overlayMaps = {
 	"TxDOT Projects": ausProjects,
 	"AUS Hilite": ausHilite
@@ -84,7 +85,7 @@ var baseMaps = {
 };
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
-
+*/
 //jquery for table of contents pop out - layers
 function plusOne(){
 			$('#arrow').css({transform:'scaleX(1)'});
