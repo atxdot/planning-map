@@ -33,7 +33,7 @@ L.easyButton('fa-globe fa-lg', function(){
   
 //load AUS district boundary AGO feature service
 var ausHilite = L.esri.featureLayer({
-				url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
+				url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
 				style: function(feature) {
 					return {color: '#000000', opacity: '0.3'};
 					}
