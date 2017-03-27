@@ -1,31 +1,38 @@
 html,body { margin: 0; padding: 0; }
 
-#map { position: absolute; top: 70px; bottom: 0; right: 0; left: 0; }
+#map { position: absolute; top: 55px; bottom: 0; right: 0; left: 0; }
 
 #title { 
     position: absolute;
-    height: 70px; 
+    height: 55px; 
     width: 100%; 
     background-color: #14385c;
 	border: 2px solid gray;
 	border-radius: 5px;
 }
 
-h2 {
+
+h4 {
     font-family: 'Ubuntu', sans-serif;
     font-size: 30px;
     color: #ffffff;
 }
 
+#title-txt {
+	text-shadow: 2px 2px #000;
+}
+
 .txdot-img {
     float: left;
-    padding-top: 5px;
+	padding-top: 1px;
+	height: 50px;
+	width: 72px;
 }
 
 #query {
 	color: white;
     position: absolute;
-    top: 80px;
+    top: 65px;
     right: 10px;
     z-index: 400;
     background: #14385c;
@@ -43,7 +50,7 @@ h2 {
 }
 
 #arrow {
-	font-size: 30px;
+	font-size: 25px;
 	color: white;
 	cursor: pointer;
 	position: relative;
@@ -63,7 +70,7 @@ h2 {
 
 #toc {
     position: absolute;
-    top: 200px;
+    top: 185px;
     left: 10px;
     z-index: 400;
     background: #14385c;
@@ -78,17 +85,19 @@ h2 {
 }
 
 @media screen and (max-width: 1000px) {
-    h2 {
+    h4 {
         font-size: 20px;
         font-family: 'Ubuntu', sans-serif;
         font-weight: 300;
+		padding-top: 3px;
     }
 }
 
-@media screen and (max-width: 650px) {
-    h2 {
-        font-size: 14px;
+@media screen and (max-width: 600px) {
+    h4 {
+        font-size: 15px;
         font-family: 'Ubuntu', sans-serif;
         font-weight: 300;
+		padding-top: 5px;
     }
 }
