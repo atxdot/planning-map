@@ -8,14 +8,23 @@ var map = L.map('map');
 map.fitBounds(bounds);
 
 //load custom txdot basemap as initial base (not included in basemap changer) 
-var layer = L.esri.tiledMapLayer({
+var spm = L.esri.tiledMapLayer({
                 url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
             }).addTo(map);
 
 //openstreetmap variable for layer control
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="//osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
+
+//carto basemap variables
+var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
+    });
+
+var darkmatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
+    });
 
 //custom easy button control, zoom to var bounds
 L.easyButton('fa-globe fa-lg', function(){
@@ -26,7 +35,7 @@ L.easyButton('fa-globe fa-lg', function(){
 var ausHilite = L.esri.featureLayer({
 				url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
 				style: function(feature) {
-					return {color: '#000000', opacity: '0.2'};
+					return {color: '#000000', opacity: '0.3'};
 					}
 				}).addTo(map);
 
@@ -63,14 +72,18 @@ county.addEventListener('change', function(){
 
 //layer control
 var overlayMaps = {
-	"TxDOT Projects": ausProjects
+	"TxDOT Projects": ausProjects,
+	"AUS Hilite": ausHilite
 };
 
 var baseMaps = {
-	"OpenStreetMap": osm
+	"TxDOT SPM": spm,
+	"OpenStreetMap": osm,
+	"Positron": positron,
+	"Dark Matter": darkmatter
 };
 
-L.control.layers(overlayMaps, baseMaps).addTo(map);
+L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 //jquery for table of contents pop out - layers
 function plusOne(){
@@ -84,19 +97,33 @@ function minusOne(){
 $(document).ready(function(){
 	$('#toc').draggable();
 	$('#arrow').click(function(){
-		if($('#toc').css('width')=='30px'){
-			$('#toc').animate({width:'250px', height:'300px'}, 500, minusOne);
-			$('#toc-content').show();
+		if($('#toc').css('width')=='33px'){
+			$('#toc').animate({width:'250px', height:'320px'}, 500, minusOne);
+			$('#layer-control').show();
 			$('#vert').hide();
 		}else{
-			$('#toc').animate({width:'30px', height:'215px'}, 500, plusOne);
-			$('#toc-content').hide();
+			$('#toc').animate({width:'33px', height:'215px'}, 500, plusOne);
+			$('#layer-control').hide();
 			$('#vert').show();
 		}
     });
+	$('#layer-control input[type="checkbox"]').on('change', function() {
+		var checkbox = $(this);
+		var layer = checkbox.data().layer;
+		//toggle the layer
+		if (checkbox.is('checked')) {
+			map.addLayer(ausProjects);
+		} else {
+			map.removeLayer(ausProjects);
+		}
+	})
 });
 
 //input checkbox/radio button in layers popout
+/*var bm = document.getElementById()
+*/
+/*
 function onClickHandler(){
 	var chk=document.getElementById("box").value;
 }
+*/

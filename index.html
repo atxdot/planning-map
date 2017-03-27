@@ -78,15 +78,17 @@
 			<h6>S</h6>
 		</div>
 		
-		<div id="toc-content" class="container">
-			<h5><b>Layers</b></h5>
-			<input type="checkbox" name="layer" value="ausHilite" checked="checked"> AUS Boundary Hilite<br>
-			<input type="checkbox" name="layer" value="ausProjects"> TxDOT Projects<br>
-			<input type="checkbox" name="layer" value=""> Layer 3<br>
-			<input type="checkbox" name="layer" value=""> Layer 4<br>
-			<h5><b>Basemaps</b></h5>
-			<input type="radio" name="basemap" value="spm" checked="checked"> Statewide Planning Map<br>
-			<input type="radio" name="basemap" value="osm"> OpenStreetMap<br>
+		<div id="layer-control" class="container">
+			<h6><u>Layers</u></h6>
+				<input type="checkbox" data-layer="ausHilite" checked="checked"> AUS Boundary<br>
+				<input type="checkbox" data-layer="ausProjects"> TxDOT Projects<br>
+				<input type="checkbox" data-layer=""> Layer 3<br>
+				<input type="checkbox" data-layer=""> Layer 4<br>
+			<h6><u>Basemaps</u></h6>
+				<input type="radio" name="baseMaps" value="spm" checked="checked"> Statewide Planning Map<br>
+				<input type="radio" name="baseMaps" value="osm"> OpenStreetMap<br>
+				<input type="radio" name="baseMaps" value="positron"> Carto Positron<br>
+				<input type="radio" name="baseMaps" value="darkmatter"> Carto Dark Matter<br>
 		</div>
 	</div>
 
