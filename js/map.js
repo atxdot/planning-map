@@ -5,9 +5,10 @@ var northWest = L.latLng(30.95, -99.49),
 
 //create map
 var map = L.map('map');
+//fit map to bounds
 map.fitBounds(bounds);
 
-//load custom txdot basemap as initial base (not included in basemap changer) 
+//load custom txdot basemap as initial base (not included in basemap changer)
 var spm = L.esri.tiledMapLayer({
                 url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
             }).addTo(map);
@@ -30,7 +31,7 @@ var darkmatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/
 L.easyButton('fa-globe fa-lg', function(){
     map.fitBounds(bounds)
 }).addTo(map);
-  
+
 //load AUS district boundary AGO feature service
 var ausHilite = L.esri.featureLayer({
 				url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
@@ -39,7 +40,7 @@ var ausHilite = L.esri.featureLayer({
 					}
 				}).addTo(map);
 
-//load AUS TxDOT projects AGO feature service - filter for AUS & create proper symbology
+//create AUS TxDOT projects layer - filter for AUS & create Project Tracker symbology
 var ausProjects = L.esri.featureLayer({
                     url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
                     where: "DISTRICT_NAME = 'Austin'",
@@ -60,16 +61,21 @@ var ausProjects = L.esri.featureLayer({
 
 //popup box for ausProjects
 ausProjects.bindPopup(function (evt) {
-    return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}', evt.feature.properties);
+	return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}',
+	evt.feature.properties);
 });
 
-//filter by county control
-/*var county = document.getElementById('county');
+//create txdot aadt variable
+var aadt = L.esri.featureLayer({
+							url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
+							where: "T_DIST_NBR = 14"
+						});
 
-county.addEventListener('change', function(){
-    ausProjects.setWhere(county.value);
+//popup box for aadt
+aadt.bindPopup(function (evt) {
+	return L.Util.template('<b>DISTRICT: </b>{T_DIST_NM}<br><b>COUNTY: </b>{T_CNTY_NM}<br><b>F2015 COUNT: </b>{F2015_TRAF}<br><b>F2014 COUNT: </b>{F2014_TRAF}',
+	evt.feature.properties);
 });
-*/
 
 //basemap layer control
 var baseMaps = {
@@ -81,15 +87,23 @@ var baseMaps = {
 
 L.control.layers(baseMaps).addTo(map);
 
-//jquery for table of contents - custom layer control
+//jquery functions and code for table of contents - custom layer control
 function plusOne(){
 	$('#arrow').css({transform:'scaleX(1)'});
 }
-		
+
 function minusOne(){
 	$('#arrow').css({transform:'scaleX(-1)'});
 }
-		
+
+function toggleLayer(checked, layer) {
+	if (checked) {
+		map.addLayer(layer);
+	}else {
+		map.removeLayer(layer);
+	}
+}
+
 $(document).ready(function(){
 	$('#toc').draggable();
 	$('#arrow').click(function(){
@@ -102,16 +116,21 @@ $(document).ready(function(){
 			$('#layer-control').hide();
 			$('#vert').show();
 		}
-    });
-	
-    $('#ausProjects').change(function() {
-        if($(this.checked)) {
-            var returnVal = ausProjects.addTo(map);
-            $(this).prop('checked', returnVal);
-        }else{
-			var removeVal = map.removeLayer(ausProjects);
-			$(this).prop(removeVal);
-		}       
-    });
-});
+  });
 
+	$(".check").change(function() {
+  	var layerClicked = $(this).attr("id");
+  	switch (layerClicked) {
+    	case "ausHilite":
+      	toggleLayer(this.checked, ausHilite);
+      	break;
+    	case "ausProjects":
+      	toggleLayer(this.checked, ausProjects);
+      	break;
+			case "aadt":
+				toggleLayer(this.checked, aadt);
+				break;
+  	}
+	});
+
+});

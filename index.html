@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset=utf-8 />
-  
+
     <title>TxDOT AUS</title>
-  
+
     <meta name='viewport' content="width=device-width, initial-scale=1" />
-  
+
     <!-- Load jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<!-- Load jQuery UI -->
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<!-- Load jQuery UI Touch Punch -->
-	<script src="js/jquery.ui.touch-punch.min.js"></script>
+    <!-- Load jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Load jQuery UI Touch Punch -->
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
     <!-- Load Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -28,7 +28,7 @@
     <!-- Load local leaflet zoomhome content -->
     <link rel="stylesheet" href="style/leaflet.zoomhome.css"/>
     <script src="js/leaflet.zoomhome.min.js"></script>
-	<!-- Load Easy Button -->
+    <!-- Load Easy Button -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-easybutton@2.0.0/src/easy-button.css">
     <script src="https://unpkg.com/leaflet-easybutton@2.0.0/src/easy-button.js"></script>
     <!-- Load Google Fonts -->
@@ -39,31 +39,31 @@
 </head>
 
 <body>
-    
+
     <div id="title" class="container-fluid">
         <img src="images/White_LOGO_TxDOT.png" class="txdot-img" alt="TxDOT">
         <h4 id="title-txt" class="text-center">TxDOT AUS District Planning</h4>
     </div>
 
     <div id="map"></div>
-	
-	<div id="toc" class="leaflet-bar">
-		<div id="arrow">&#9656;</div>
+
+    <div id="toc" class="leaflet-bar">
+		    <div id="arrow">&#9656;</div>
 		<div id="vert">
-			<h6>L</h6>
-			<h6>A</h6>
-			<h6>Y</h6>
-			<h6>E</h6>
-			<h6>R</h6>
-			<h6>S</h6>
+		    <h6>L</h6>
+        <h6>A</h6>
+        <h6>Y</h6>
+        <h6>E</h6>
+        <h6>R</h6>
+        <h6>S</h6>
 		</div>
-		
+
 		<div id="layer-control" class="container-fluid">
 			<h6><u>Layers</u></h6>
-				<input type="checkbox" id="ausHilite" checked="checked"> AUS Boundary<br>
-				<input type="checkbox" id="ausProjects"> AUS Projects (All)<br>
-				<input type="checkbox" id=""> Layer 3<br>
-				<input type="checkbox" id=""> Layer 4<br>
+				<input type="checkbox" id="ausHilite" class="check" checked="checked"> AUS Boundary <br>
+				<input type="checkbox" id="ausProjects" class="check"> AUS Projects <br>
+				<input type="checkbox" id="aadt" class="check"> AUS AADT Counts <br>
+
 		</div>
 	</div>
 
