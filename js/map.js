@@ -8,17 +8,17 @@ var map = L.map('map');
 //fit map to bounds
 map.fitBounds(bounds);
 
-//load custom txdot basemap as initial base (not included in basemap changer)
+//load custom txdot basemap as initial base
 var spm = L.esri.tiledMapLayer({
                 url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
             }).addTo(map);
 
-//openstreetmap variable for layer control
+//openstreetmap variable
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
-//carto basemap variables
+//carto basemap variable
 var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
     });
@@ -67,9 +67,20 @@ ausProjects.bindPopup(function (evt) {
 
 //create txdot aadt variable
 var aadt = L.esri.featureLayer({
-							url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
-							where: "T_DIST_NBR = 14"
-						});
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
+	where: "T_DIST_NBR = 14"
+});
+
+/*
+var markers = new L.markerClusterGroup();
+for (var i = 0; i < aadt.length; i++) {
+	var a = aadt[i];
+	var title = a[2];
+	var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+	marker.bindPopup(title);
+	markers.addLayer(marker);
+}
+*/
 
 //popup box for aadt
 aadt.bindPopup(function (evt) {
@@ -87,7 +98,7 @@ var baseMaps = {
 
 L.control.layers(baseMaps).addTo(map);
 
-//jquery functions and code for table of contents - custom layer control
+//jquery functions etc. for interactive table of contents - custom layer control
 function plusOne(){
 	$('#arrow').css({transform:'scaleX(1)'});
 }
@@ -108,7 +119,7 @@ $(document).ready(function(){
 	$('#toc').draggable();
 	$('#arrow').click(function(){
 		if($('#toc').css('width')=='33px'){
-			$('#toc').animate({width:'250px', height:'320px'}, 500, minusOne);
+			$('#toc').animate({width:'200px', height:'300px'}, 500, minusOne);
 			$('#layer-control').show();
 			$('#vert').hide();
 		}else{
@@ -116,21 +127,21 @@ $(document).ready(function(){
 			$('#layer-control').hide();
 			$('#vert').show();
 		}
-  });
-
-	$(".check").change(function() {
-  	var layerClicked = $(this).attr("id");
-  	switch (layerClicked) {
-    	case "ausHilite":
-      	toggleLayer(this.checked, ausHilite);
-      	break;
-    	case "ausProjects":
-      	toggleLayer(this.checked, ausProjects);
-      	break;
-			case "aadt":
-				toggleLayer(this.checked, aadt);
-				break;
-  	}
 	});
 
+	$(".check").change(function() {
+		var layerClicked = $(this).attr("id");
+			switch (layerClicked) {
+    		case "ausHilite":
+      			toggleLayer(this.checked, ausHilite);
+      		break;
+    		case "ausProjects":
+      			toggleLayer(this.checked, ausProjects);
+      		break;
+			case "aadt":
+				toggleLayer(this.checked, aadt);
+			break;
+			}
+	});
+	
 });
