@@ -67,7 +67,7 @@ ausProjects.bindPopup(function (evt) {
 
 //create txdot aadt variable
 var aadt = L.esri.featureLayer({
-							url: 'http://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
+							url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
 							where: "T_DIST_NBR = 14"
 						});
 
