@@ -59,32 +59,54 @@ var ausProjects = L.esri.featureLayer({
                       }
                     });
 
-//popup box for ausProjects
+//popup for ausProjects
 ausProjects.bindPopup(function (evt) {
 	return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}',
 	evt.feature.properties);
 });
-
+/*
+var circle = new L.CircleMarker(latlng, {
+	radius: 3,
+	fillColor: "#ff7800",
+	color: "#000",
+	weight: 1,
+	opacity: 1,
+	fillOpacity: 0.8,
+});
+*/
 //create txdot aadt variable
 var aadt = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
-	where: "T_DIST_NBR = 14"
-});
+	where: "T_DIST_NBR = 14",
+	pointToLayer: function (latlng){
+    	return new L.CircleMarker(latlng, {
+        	radius: 5,
+        	fillColor: "#ff7800",
+        	color: "#000",
+        	weight: 1,
+        	opacity: 1,
+        	fillOpacity: 0.8,
+    	});
+}});
 
-/*
-var markers = new L.markerClusterGroup();
-for (var i = 0; i < aadt.length; i++) {
-	var a = aadt[i];
-	var title = a[2];
-	var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-	marker.bindPopup(title);
-	markers.addLayer(marker);
-}
-*/
-
-//popup box for aadt
+//popup for aadt
 aadt.bindPopup(function (evt) {
 	return L.Util.template('<b>DISTRICT: </b>{T_DIST_NM}<br><b>COUNTY: </b>{T_CNTY_NM}<br><b>F2015 COUNT: </b>{F2015_TRAF}<br><b>F2014 COUNT: </b>{F2014_TRAF}',
+	evt.feature.properties);
+});
+
+//create top 100 most congested rdwys variable
+var mostCongested = L.esri.featureLayer({
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/TxDOT_Top_100_Congested_Roadways/FeatureServer/0',
+	where: "DIST_NM = 'Austin'",
+	style: function (feature) {
+		return {color: '#d7211a', weight: 5};
+	}
+});
+
+//popup for top 100
+mostCongested.bindPopup(function (evt) {
+	return L.Util.template('<b>HWY: </b>{RD_NM}<br><b>YEAR: </b>{YR}<br><b>RANK: </b>{RANK}<br><b>DELAY COST: </b>{COST_DLAY}',
 	evt.feature.properties);
 });
 
@@ -98,7 +120,7 @@ var baseMaps = {
 
 L.control.layers(baseMaps).addTo(map);
 
-//jquery functions etc. for interactive table of contents - custom layer control
+//jquery for interactive table of contents - custom layer control
 function plusOne(){
 	$('#arrow').css({transform:'scaleX(1)'});
 }
@@ -141,6 +163,8 @@ $(document).ready(function(){
 			case "aadt":
 				toggleLayer(this.checked, aadt);
 			break;
+			case "mostCongested":
+				toggleLayer(this.checked, mostCongested);		
 			}
 	});
 	
