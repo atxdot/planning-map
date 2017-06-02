@@ -64,30 +64,12 @@ ausProjects.bindPopup(function (evt) {
 	return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}',
 	evt.feature.properties);
 });
-/*
-var circle = new L.CircleMarker(latlng, {
-	radius: 3,
-	fillColor: "#ff7800",
-	color: "#000",
-	weight: 1,
-	opacity: 1,
-	fillOpacity: 0.8,
-});
-*/
+
 //create txdot aadt variable
 var aadt = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
-	where: "T_DIST_NBR = 14",
-	pointToLayer: function (latlng){
-    	return new L.CircleMarker(latlng, {
-        	radius: 5,
-        	fillColor: "#ff7800",
-        	color: "#000",
-        	weight: 1,
-        	opacity: 1,
-        	fillOpacity: 0.8,
-    	});
-}});
+	where: "T_DIST_NBR = 14"
+});
 
 //popup for aadt
 aadt.bindPopup(function (evt) {
