@@ -76,14 +76,14 @@ h6 {
 
 #toc {
     position: absolute;
-    top: 183px;
+    top: 226px;
     left: 10px;
     z-index: 400;
     background: #14385c;
 	border: 2px solid gray;
 	border-radius: 5px;
     width: 33px;
-    height: 215px;
+    height: 175px;
     padding: 10px;
     font-family: 'Ubuntu', sans-serif;
     font-size: 14;

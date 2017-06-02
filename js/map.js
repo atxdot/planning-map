@@ -5,6 +5,7 @@ var northWest = L.latLng(30.95, -99.49),
 
 //create map
 var map = L.map('map');
+
 //fit map to bounds
 map.fitBounds(bounds);
 
@@ -31,6 +32,10 @@ var darkmatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/
 L.easyButton('fa-globe fa-lg', function(){
     map.fitBounds(bounds)
 }).addTo(map);
+
+//esri leaflet geocoder control
+var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+var results = L.layerGroup().addTo(map);
 
 //load AUS district boundary AGO feature service
 var ausHilite = L.esri.featureLayer({
@@ -82,7 +87,7 @@ var mostCongested = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/TxDOT_Top_100_Congested_Roadways/FeatureServer/0',
 	where: "DIST_NM = 'Austin'",
 	style: function (feature) {
-		return {color: '#d7211a', weight: 5};
+		return {color: '#d7211a', weight: 4};
 	}
 });
 
@@ -123,11 +128,11 @@ $(document).ready(function(){
 	$('#toc').draggable();
 	$('#arrow').click(function(){
 		if($('#toc').css('width')=='33px'){
-			$('#toc').animate({width:'200px', height:'300px'}, 500, minusOne);
+			$('#toc').animate({width:'180px', height:'300px'}, 500, minusOne);
 			$('#layer-control').show();
 			$('#vert').hide();
 		}else{
-			$('#toc').animate({width:'33px', height:'215px'}, 500, plusOne);
+			$('#toc').animate({width:'33px', height:'165px'}, 500, plusOne);
 			$('#layer-control').hide();
 			$('#vert').show();
 		}
