@@ -28,6 +28,10 @@ var darkmatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
     });
 
+//esri basemap variables
+var topo = L.esri.basemapLayer("Topographic");
+var imagery = L.esri.basemapLayer("Imagery", "ImageryTransportation");
+
 //custom easy button control, zoom to var bounds
 L.easyButton('fa-globe fa-lg', function(){
     map.fitBounds(bounds)
@@ -102,7 +106,9 @@ var baseMaps = {
 	"TxDOT SPM": spm,
 	"OpenStreetMap": osm,
 	"Positron": positron,
-	"Dark Matter": darkmatter
+	"Dark Matter": darkmatter,
+	"Topographic": topo,
+	"ESRI Imagery": imagery
 };
 
 L.control.layers(baseMaps).addTo(map);

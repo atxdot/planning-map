@@ -108,3 +108,10 @@ h6 {
 		padding-top: 5px;
     }
 }
+
+@media (max-height:420px) {
+	#toc {
+		top: 65px;
+		left: 55px;
+	}
+}
