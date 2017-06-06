@@ -217,6 +217,7 @@ $(document).ready(function(){
 			break;
 			case "ausCounty":
 				toggleLayer(this.checked, ausCounty);
+			break;
 			}
 	});
 	
