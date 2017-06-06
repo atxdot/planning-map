@@ -45,7 +45,7 @@ var results = L.layerGroup().addTo(map);
 var ausHilite = L.esri.featureLayer({
 				url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
 				style: function(feature) {
-					return {color: '#000000', opacity: '0.3'};
+					return {color: '#000000', fillOpacity: 0.4};
 					}
 				}).addTo(map);
 
@@ -74,11 +74,19 @@ ausProjects.bindPopup(function (evt) {
 	evt.feature.properties);
 });
 
-//create txdot aadt variable
+//create txdot aadt variable 
 var aadt = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
 	where: "T_DIST_NBR = 14"
 });
+
+//variable as marker cluster - work in progress
+/*
+var aadt = L.esri.Cluster.featureLayer({
+    url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
+	where: "T_DIST_NBR = 14"
+  });
+*/
 
 //popup for aadt
 aadt.bindPopup(function (evt) {
@@ -100,6 +108,54 @@ mostCongested.bindPopup(function (evt) {
 	return L.Util.template('<b>HWY: </b>{RD_NM}<br><b>YEAR: </b>{YR}<br><b>RANK: </b>{RANK}<br><b>DELAY COST: </b>{COST_DLAY}',
 	evt.feature.properties);
 });
+
+//create county layer for aus
+var ausCounty = L.esri.featureLayer({
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/Texas_County_Boundaries/FeatureServer/0',
+	where: "DIST_NM = 'Austin'",
+	style: function (feature) {
+		return {color: '#000', weight: 2, fillOpacity: 0};
+	}
+});
+
+//county layer popup
+/*
+ausCounty.bindPopup(function (evt) {
+	return L.Util.template('<b>COUNTY: </b>{CNTY_NM}<br><b>COUNTY NBR: </b>{CNTY_NBR}',
+	evt.feature.properties);
+});
+*/
+
+//county layer labels
+var labels = {};
+
+ausCounty.on('createfeature', function(e){
+    var id = e.feature.id;
+    var feature = ausCounty.getFeature(id);
+    var center = feature.getBounds().getCenter();
+    var label = L.marker(center, {
+      icon: L.divIcon({
+        iconSize: null,
+        className: 'label',
+        html: '<div>' + e.feature.properties.CNTY_NM + '</div>'
+      })
+    }).addTo(map);
+    labels[id] = label;
+  });
+
+  ausCounty.on('addfeature', function(e){
+    var label = labels[e.feature.id];
+    if(label){
+      label.addTo(map);
+    }
+  });
+
+  ausCounty.on('removefeature', function(e){
+    var label = labels[e.feature.id];
+    if(label){
+      map.removeLayer(label);
+    }
+  });
 
 //basemap layer control
 var baseMaps = {
@@ -157,7 +213,10 @@ $(document).ready(function(){
 				toggleLayer(this.checked, aadt);
 			break;
 			case "mostCongested":
-				toggleLayer(this.checked, mostCongested);		
+				toggleLayer(this.checked, mostCongested);
+			break;
+			case "ausCounty":
+				toggleLayer(this.checked, ausCounty);
 			}
 	});
 	
