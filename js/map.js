@@ -74,23 +74,26 @@ ausProjects.bindPopup(function (evt) {
 	evt.feature.properties);
 });
 
-//create txdot aadt variable 
-var aadt = L.esri.featureLayer({
-	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
-	where: "T_DIST_NBR = 14"
-});
-
-//variable as marker cluster - work in progress
-/*
+//aadt variable as marker cluster
 var aadt = L.esri.Cluster.featureLayer({
     url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
-	where: "T_DIST_NBR = 14"
-  });
-*/
+	where: "T_DIST_NBR = 14",
+	pointToLayer: function (geojson, latlng) {
+		return L.marker(latlng, {
+			icon: redCircle
+		});
+	},
+});
+
+//red circle marker for aadt
+var redCircle = L.icon({
+	iconUrl: 'style/images/redCircle.png',
+	iconSize: [12, 12]
+});
 
 //popup for aadt
 aadt.bindPopup(function (evt) {
-	return L.Util.template('<b>DISTRICT: </b>{T_DIST_NM}<br><b>COUNTY: </b>{T_CNTY_NM}<br><b>F2015 COUNT: </b>{F2015_TRAF}<br><b>F2014 COUNT: </b>{F2014_TRAF}',
+	return L.Util.template('<b>2015 COUNT: </b>{F2015_TRAF}<br><b>2014 COUNT: </b>{F2014_TRAF}<br><b>2013 COUNT: </b>{F2013_TRAF}<br><b>2012 COUNT: </b>{F2012_TRAF}',
 	evt.feature.properties);
 });
 
@@ -117,14 +120,6 @@ var ausCounty = L.esri.featureLayer({
 		return {color: '#000', weight: 2, fillOpacity: 0};
 	}
 });
-
-//county layer popup
-/*
-ausCounty.bindPopup(function (evt) {
-	return L.Util.template('<b>COUNTY: </b>{CNTY_NM}<br><b>COUNTY NBR: </b>{CNTY_NBR}',
-	evt.feature.properties);
-});
-*/
 
 //county layer labels
 var labels = {};
@@ -187,15 +182,17 @@ function toggleLayer(checked, layer) {
 }
 
 $(document).ready(function(){
-	$('#toc').draggable();
+//	$('#toc').draggable();
 	$('#arrow').click(function(){
 		if($('#toc').css('width')=='33px'){
-			$('#toc').animate({width:'180px', height:'300px'}, 500, minusOne);
+			$('#toc').animate({width:'185px', height:'250px'}, 500, minusOne);
 			$('#layer-control').show();
+			$('#horz').show();
 			$('#vert').hide();
 		}else{
-			$('#toc').animate({width:'33px', height:'165px'}, 500, plusOne);
+			$('#toc').animate({width:'33px', height:'175px'}, 500, plusOne);
 			$('#layer-control').hide();
+			$('#horz').hide();
 			$('#vert').show();
 		}
 	});

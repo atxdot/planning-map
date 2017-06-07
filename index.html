@@ -22,9 +22,10 @@
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
 	<!-- Leaflet marker cluster plugin -->
-	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.Default.css">
-	<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.css">
-	<script src="https://unpkg.com/leaflet.markercluster@1.0.4/dist/leaflet.markercluster.js"></script>
+	<link rel="stylesheet" href="style/MarkerCluster.Default.css">
+	<link rel="stylesheet" href="style/MarkerCluster.css">
+	<script src="js/leaflet.markercluster.js"></script>
+	<script src="https://unpkg.com/esri-leaflet-cluster@2.0.0"></script>
     <!-- Load my style content -->
     <link rel="stylesheet" href="style/style.css" />
     <!-- Load Font Awesome -->
@@ -53,6 +54,7 @@
 
     <div id="toc" class="leaflet-bar">
 		<div id="arrow">&#9656;</div>
+		
 		<div id="vert">
 		    <h6>L<br>
         		A<br>
@@ -63,12 +65,29 @@
 		</div>
 
 		<div id="layer-control" class="container-fluid">
-			<h6><u>Layers</u></h6>
+			<!--<h6><u>LAYERS</u></h6>-->
 				<input type="checkbox" id="ausHilite" class="check" checked="checked"> AUS Boundary <br>
-				<input type="checkbox" id="ausProjects" class="check"> AUS Projects <br>
-				<input type="checkbox" id="aadt" class="check"> AADT Counts <br>
+			
+				<p> 
+					<input type="checkbox" id="ausProjects" class="check"><u> AUS Projects </u>
+					<span class="hr construct">Construction Scheduled</span>
+					<span class="hr finalize">Finalizing for Construction</span>
+				 	<span class="hr develop">Under Development</span>
+				 	<span class="hr plan">Long Term Planning</span>
+				</p>
+				
+			<input type="checkbox" id="aadt" class="check"> AADT Counts <br>
+				<img src="style/images/redCircle.png" height="12" width="12"><br>
+			
 				<input type="checkbox" id="mostCongested" class="check"> Top 100 <br>
+			
 				<input type="checkbox" id="ausCounty" class="check"> AUS Counties <br>
+			
+				<input type="checkbox" id="" class="check"> Placeholder <br>
+				<input type="checkbox" id="" class="check"> Placeholder <br>
+				<input type="checkbox" id="" class="check"> Placeholder <br>
+				<input type="checkbox" id="" class="check"> Placeholder <br>
+				<input type="checkbox" id="" class="check"> Placeholder <br>
 				<input type="checkbox" id="" class="check"> Placeholder <br>
 				<input type="checkbox" id="" class="check"> Placeholder <br>
 				<input type="checkbox" id="" class="check"> Placeholder <br>

@@ -24,6 +24,27 @@ h6 {
 	color: #fff;
 }
 
+.hr {
+	width: 30em;
+	height: 10em;
+}
+
+.construct {
+	color: red;
+}
+
+.finalize {
+	color: orange;
+}
+
+.develop {
+	color: cadetblue;
+}
+
+.plan {
+	color: midnightblue;
+}
+
 #title-txt {
 	text-shadow: 2px 2px #000;
 }
@@ -66,12 +87,25 @@ h6 {
 #layer-control {
 	left: 5px;
 	color: white;
+	height: 195px;
 	text-align: left;
 	display: none;
+	overflow-y: auto;
+}
+
+#legend-item {
+	text-align: left;
+	font-size: 2;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #vert {
 	color: white;
+}
+
+#horz {
+	color: white;
+	display: none;
 }
 
 #toc {
@@ -86,7 +120,6 @@ h6 {
     height: 175px;
     padding: 10px;
     font-family: 'Ubuntu', sans-serif;
-    font-size: 14;
 	box-shadow: 3px 3px 5px #000;
 	cursor: default;
 }
