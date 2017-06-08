@@ -11,8 +11,8 @@ map.fitBounds(bounds);
 
 //load custom txdot basemap as initial base
 var spm = L.esri.tiledMapLayer({
-                url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
-            }).addTo(map);
+	url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
+}).addTo(map);
 
 //openstreetmap variable
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -21,11 +21,11 @@ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //carto basemap variable
 var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
     });
 
 var darkmatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
     });
 
 //esri basemap variables
@@ -43,33 +43,50 @@ var results = L.layerGroup().addTo(map);
 
 //load AUS district boundary AGO feature service
 var ausHilite = L.esri.featureLayer({
-				url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
-				style: function(feature) {
-					return {color: '#000000', fillOpacity: 0.4};
-					}
-				}).addTo(map);
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Austin_Hilite_TxGeneral_Boundary/FeatureServer/0',
+	style: function(feature) {
+		return {color: '#000000', fillOpacity: 0.4};
+	}
+}).addTo(map);
 
-//create AUS TxDOT projects layer - filter for AUS & create Project Tracker symbology
-var ausProjects = L.esri.featureLayer({
-                    url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
-                    where: "DISTRICT_NAME = 'Austin'",
-                    style: function (feature) {
-                        if(feature.properties.PRJ_STATUS === 'Construction Scheduled'){
-                            return {color: '#d7191c', weight: 4};
-                        }   else if(feature.properties.PRJ_STATUS === 'Finalizing for Construction'){
-                            return {color: '#fdae61', weight: 4};
-                        }   else if(feature.properties.PRJ_STATUS === 'Under Development'){
-                            return {color: '#80cdc1', weight: 4};
-                        }   else if(feature.properties.PRJ_STATUS === 'Long Term Planning'){
-                            return {color: '#2c7bb6', weight: 4};
-                        }   else {
-                            return {color: '#aaaaaa', weight: 4};
-                        }
-                      }
-                    });
+//create separate AUS TxDOT project layers by project status - filter for AUS & create Project Tracker symbology
+var ausConstruct = L.esri.featureLayer({
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
+	where: "DISTRICT_NAME = 'Austin' AND PRJ_STATUS = 'Construction Scheduled'",
+	style: function (feature) {
+		return {color: '#d7191c', weight: 4};
+	}
+});
 
-//popup for ausProjects
-ausProjects.bindPopup(function (evt) {
+var ausFinalize = L.esri.featureLayer({
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
+	where: "DISTRICT_NAME = 'Austin' AND PRJ_STATUS = 'Finalizing for Construction'",
+	style: function (feature) {
+		return {color: '#fdae61', weight: 4};
+	}
+});
+
+var ausDevelop = L.esri.featureLayer({
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
+	where: "DISTRICT_NAME = 'Austin' AND PRJ_STATUS = 'Under Development'",
+	style: function (feature) {
+		return {color: '#80cdc1', weight: 4};
+	}
+});
+
+var ausPlan = L.esri.featureLayer({
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
+	where: "DISTRICT_NAME = 'Austin' AND PRJ_STATUS = 'Long Term Planning'",
+	style: function (feature) {
+		return {color: '#2c7bb6', weight: 4};
+	}
+});
+
+//create group of project status variables for bindPopup
+var txdotProjects = L.layerGroup([ausConstruct, ausFinalize, ausDevelop, ausPlan]);
+
+//popup for txdot projects
+txdotProjects.bindPopup(function (evt) {
 	return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}',
 	evt.feature.properties);
 });
@@ -117,7 +134,7 @@ var ausCounty = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/ArcGIS/rest/services/Texas_County_Boundaries/FeatureServer/0',
 	where: "DIST_NM = 'Austin'",
 	style: function (feature) {
-		return {color: '#000', weight: 2, fillOpacity: 0};
+		return {color: '#734d26', weight: 2, fillOpacity: 0};
 	}
 });
 
@@ -185,7 +202,7 @@ $(document).ready(function(){
 //	$('#toc').draggable();
 	$('#arrow').click(function(){
 		if($('#toc').css('width')=='33px'){
-			$('#toc').animate({width:'185px', height:'250px'}, 500, minusOne);
+			$('#toc').animate({width:'190px', height:'250px'}, 500, minusOne);
 			$('#layer-control').show();
 			$('#horz').show();
 			$('#vert').hide();
@@ -200,20 +217,26 @@ $(document).ready(function(){
 	$(".check").change(function() {
 		var layerClicked = $(this).attr("id");
 			switch (layerClicked) {
-    		case "ausHilite":
-      			toggleLayer(this.checked, ausHilite);
+    			case "ausConstruct":
+      				toggleLayer(this.checked, ausConstruct);
       		break;
-    		case "ausProjects":
-      			toggleLayer(this.checked, ausProjects);
-      		break;
-			case "aadt":
-				toggleLayer(this.checked, aadt);
+				case "ausFinalize":
+					toggleLayer(this.checked, ausFinalize);
 			break;
-			case "mostCongested":
-				toggleLayer(this.checked, mostCongested);
+				case "ausDevelop":
+					toggleLayer(this.checked, ausDevelop);
 			break;
-			case "ausCounty":
-				toggleLayer(this.checked, ausCounty);
+				case "ausPlan":
+					toggleLayer(this.checked, ausPlan);
+			break;
+				case "aadt":
+					toggleLayer(this.checked, aadt);
+			break;
+				case "mostCongested":
+					toggleLayer(this.checked, mostCongested);
+			break;
+				case "ausCounty":
+					toggleLayer(this.checked, ausCounty);
 			break;
 			}
 	});

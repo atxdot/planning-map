@@ -24,25 +24,10 @@ h6 {
 	color: #fff;
 }
 
-.hr {
-	width: 30em;
-	height: 10em;
-}
-
-.construct {
-	color: red;
-}
-
-.finalize {
-	color: orange;
-}
-
-.develop {
-	color: cadetblue;
-}
-
-.plan {
-	color: midnightblue;
+hr .county {
+	width: 100%;
+	height: 3px;
+	color: #734d26;
 }
 
 #title-txt {
@@ -85,10 +70,11 @@ h6 {
 }
 
 #layer-control {
+	background: #fff;
 	left: 5px;
-	color: white;
 	height: 195px;
 	text-align: left;
+	color: #000;
 	display: none;
 	overflow-y: auto;
 }
@@ -125,7 +111,7 @@ h6 {
 }
 
 .label {
-	color: #000;
+	color: #734d26;
 	font-size: small;
 	font-weight: 700;
 	text-transform: uppercase;
