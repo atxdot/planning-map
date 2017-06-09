@@ -49,6 +49,12 @@ var ausHilite = L.esri.featureLayer({
 	}
 }).addTo(map);
 
+//function for aus txdot project bindpop
+function createPopup (evt) {
+	return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}',
+	evt.feature.properties)
+};
+
 //create separate AUS TxDOT project layers by project status - filter for AUS & create Project Tracker symbology
 var ausConstruct = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
@@ -56,7 +62,7 @@ var ausConstruct = L.esri.featureLayer({
 	style: function (feature) {
 		return {color: '#d7191c', weight: 4};
 	}
-});
+}).bindPopup(createPopup);
 
 var ausFinalize = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
@@ -64,7 +70,7 @@ var ausFinalize = L.esri.featureLayer({
 	style: function (feature) {
 		return {color: '#fdae61', weight: 4};
 	}
-});
+}).bindPopup(createPopup);
 
 var ausDevelop = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
@@ -72,7 +78,7 @@ var ausDevelop = L.esri.featureLayer({
 	style: function (feature) {
 		return {color: '#80cdc1', weight: 4};
 	}
-});
+}).bindPopup(createPopup);
 
 var ausPlan = L.esri.featureLayer({
 	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_Projects/FeatureServer/0',
@@ -80,16 +86,7 @@ var ausPlan = L.esri.featureLayer({
 	style: function (feature) {
 		return {color: '#2c7bb6', weight: 4};
 	}
-});
-
-//create group of project status variables for bindPopup
-var txdotProjects = L.layerGroup([ausConstruct, ausFinalize, ausDevelop, ausPlan]);
-
-//popup for txdot projects
-txdotProjects.bindPopup(function (evt) {
-	return L.Util.template('<b>CSJ: </b>{CONTROL_SECT_JOB}<br><b>HWY: </b>{HIGHWAY_NUMBER}<br><b>COUNTY: </b>{COUNTY_NAME}<br><b>LENGTH: </b>{PROJ_LENGTH}<br><b>PROJECT CLASS: </b>{PROJ_CLASS}<br><b>EST. COST: </b>{EST_CONST_COST}<br><b>TYPE OF WORK: </b>{TYPE_OF_WORK}<br><b>LET DATE: </b>{DIST_LET_DATE}<br><b>BEGIN MILE PT: </b>{BEG_MILE_POINT}<br><b>END MILE PT: </b>{END_MILE_POINT}<br><b>FUND CATEGORY: </b>{TPP_CATEGORY_P2}<br><b>WORK PROGRAM: </b>{TPP_WORK_PROGRAM}<br><b>STATUS: </b>{PRJ_STATUS}',
-	evt.feature.properties);
-});
+}).bindPopup(createPopup);
 
 //aadt variable as marker cluster
 var aadt = L.esri.Cluster.featureLayer({
