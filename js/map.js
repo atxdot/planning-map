@@ -1,7 +1,7 @@
 //create var bounds
 var northWest = L.latLng(30.95, -99.49),
-	southEast = L.latLng(29.72, -96.66),
-	bounds = L.latLngBounds(northWest, southEast);
+southEast = L.latLng(29.72, -96.66),
+bounds = L.latLngBounds(northWest, southEast);
 
 //create map
 var map = L.map('map');
@@ -16,17 +16,17 @@ var spm = L.esri.tiledMapLayer({
 
 //openstreetmap variable
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
 //carto basemap variable
 var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
-    });
+});
 
 var darkmatter = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://carto.com/attribution">Carto</a>'
-    });
+});
 
 //esri basemap variables
 var topo = L.esri.basemapLayer("Topographic");
@@ -34,7 +34,7 @@ var imagery = L.esri.basemapLayer("Imagery", "ImageryTransportation");
 
 //custom easy button control, zoom to var bounds
 L.easyButton('fa-globe fa-lg', function(){
-    map.fitBounds(bounds)
+	map.fitBounds(bounds)
 }).addTo(map);
 
 //esri leaflet geocoder control
@@ -90,7 +90,7 @@ var ausPlan = L.esri.featureLayer({
 
 //aadt variable as marker cluster
 var aadt = L.esri.Cluster.featureLayer({
-    url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
+	url: 'https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/TxDOT_AADT/FeatureServer/0',
 	where: "T_DIST_NBR = 14",
 	pointToLayer: function (geojson, latlng) {
 		return L.marker(latlng, {
@@ -139,32 +139,32 @@ var ausCounty = L.esri.featureLayer({
 var labels = {};
 
 ausCounty.on('createfeature', function(e){
-    var id = e.feature.id;
-    var feature = ausCounty.getFeature(id);
-    var center = feature.getBounds().getCenter();
-    var label = L.marker(center, {
-      icon: L.divIcon({
-        iconSize: null,
-        className: 'label',
-        html: '<div>' + e.feature.properties.CNTY_NM + '</div>'
-      })
-    }).addTo(map);
-    labels[id] = label;
-  });
+	var id = e.feature.id;
+	var feature = ausCounty.getFeature(id);
+	var center = feature.getBounds().getCenter();
+	var label = L.marker(center, {
+		icon: L.divIcon({
+			iconSize: null,
+			className: 'label',
+			html: '<div>' + e.feature.properties.CNTY_NM + '</div>'
+		})
+	}).addTo(map);
+	labels[id] = label;
+});
 
-  ausCounty.on('addfeature', function(e){
-    var label = labels[e.feature.id];
-    if(label){
-      label.addTo(map);
-    }
-  });
+ausCounty.on('addfeature', function(e){
+	var label = labels[e.feature.id];
+	if(label){
+		label.addTo(map);
+	}
+});
 
-  ausCounty.on('removefeature', function(e){
-    var label = labels[e.feature.id];
-    if(label){
-      map.removeLayer(label);
-    }
-  });
+ausCounty.on('removefeature', function(e){
+	var label = labels[e.feature.id];
+	if(label){
+		map.removeLayer(label);
+	}
+});
 
 //basemap layer control
 var baseMaps = {
@@ -196,15 +196,17 @@ function toggleLayer(checked, layer) {
 }
 
 $(document).ready(function(){
-//	$('#toc').draggable();
+	//	$('#toc').draggable();
 	$('#arrow').click(function(){
-		if($('#toc').css('width')=='33px'){
-			$('#toc').animate({width:'190px', height:'250px'}, 500, minusOne);
+		if($('#toc').css('width')=='30px'){
+			$('#toc').animate({width:'220px'}, 500, minusOne);
+			$('#map').animate({left:'220px'}, 500);
 			$('#layer-control').show();
 			$('#horz').show();
 			$('#vert').hide();
 		}else{
-			$('#toc').animate({width:'33px', height:'175px'}, 500, plusOne);
+			$('#toc').animate({width:'30px', height:'100%'}, 500, plusOne);
+			$('#map').animate({left:'30px'}, 500);
 			$('#layer-control').hide();
 			$('#horz').hide();
 			$('#vert').show();
@@ -213,29 +215,29 @@ $(document).ready(function(){
 
 	$(".check").change(function() {
 		var layerClicked = $(this).attr("id");
-			switch (layerClicked) {
-    			case "ausConstruct":
-      				toggleLayer(this.checked, ausConstruct);
-      		break;
-				case "ausFinalize":
-					toggleLayer(this.checked, ausFinalize);
+		switch (layerClicked) {
+			case "ausConstruct":
+			toggleLayer(this.checked, ausConstruct);
 			break;
-				case "ausDevelop":
-					toggleLayer(this.checked, ausDevelop);
+			case "ausFinalize":
+			toggleLayer(this.checked, ausFinalize);
 			break;
-				case "ausPlan":
-					toggleLayer(this.checked, ausPlan);
+			case "ausDevelop":
+			toggleLayer(this.checked, ausDevelop);
 			break;
-				case "aadt":
-					toggleLayer(this.checked, aadt);
+			case "ausPlan":
+			toggleLayer(this.checked, ausPlan);
 			break;
-				case "mostCongested":
-					toggleLayer(this.checked, mostCongested);
+			case "aadt":
+			toggleLayer(this.checked, aadt);
 			break;
-				case "ausCounty":
-					toggleLayer(this.checked, ausCounty);
+			case "mostCongested":
+			toggleLayer(this.checked, mostCongested);
 			break;
-			}
+			case "ausCounty":
+			toggleLayer(this.checked, ausCounty);
+			break;
+		}
 	});
-	
+
 });
