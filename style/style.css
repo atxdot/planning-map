@@ -1,6 +1,6 @@
 html,body { margin: 0; padding: 0; }
 
-#map { position: fixed; top: 55px; bottom: 0; right: 0; left: 30; }
+#map { position: absolute; top: 55px; left: 30px; }
 
 #title {
   position: absolute;
@@ -40,21 +40,6 @@ hr .county {
   width: 71px;
 }
 
-#bm {
-  color: white;
-  position: absolute;
-  top: 65px;
-  right: 10px;
-  z-index: 400;
-  background: #14385c;
-  border: 2px solid gray;
-  border-radius: 5px;
-  padding: 5px 5px 5px 5px;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 14;
-  box-shadow: 3px 3px 5px #000;
-}
-
 #county {
   color: black;
   margin-bottom: 5px;
@@ -70,9 +55,11 @@ hr .county {
 
 #layer-control {
   background: #fff;
-  border-radius: 5px;
-  left: 5px;
-  height: 100%;
+  font-size: x-small;
+  left: 3px;
+  bottom: 5px;
+  border-radius: 3px;
+  padding: 10px;
   text-align: left;
   color: #000;
   display: none;
@@ -95,12 +82,14 @@ hr .county {
 }
 
 #toc {
+  z-index: 999;
   position: absolute;
   top: 55px;
+  left: 0px;
   background: #14385c;
   border: 2px solid gray;
   width: 30px;
-  height: 100vh;
+  bottom: 0;
   padding: 10px;
   font-family: 'Ubuntu', sans-serif;
   cursor: default;
@@ -141,7 +130,6 @@ hr .county {
 
 @media (max-height:550px) {
   #toc {
-    top: 65px;
-    left: 55px;
+    overflow: auto;
   }
 }

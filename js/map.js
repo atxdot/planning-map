@@ -12,12 +12,12 @@ map.fitBounds(bounds);
 //load custom txdot basemap as initial base
 var spm = L.esri.tiledMapLayer({
 	url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
-}).addTo(map);
+});
 
 //openstreetmap variable
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
+}).addTo(map);
 
 //carto basemap variable
 var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -196,18 +196,17 @@ function toggleLayer(checked, layer) {
 }
 
 $(document).ready(function(){
-	//	$('#toc').draggable();
 	$('#arrow').click(function(){
 		if($('#toc').css('width')=='30px'){
 			$('#toc').animate({width:'220px'}, 500, minusOne);
-			$('#map').animate({left:'220px'}, 500);
 			$('#layer-control').show();
+			$('#map').css({left:'220px'}, 500);
 			$('#horz').show();
 			$('#vert').hide();
 		}else{
-			$('#toc').animate({width:'30px', height:'100%'}, 500, plusOne);
-			$('#map').animate({left:'30px'}, 500);
+			$('#toc').animate({width:'30px', bottom:'0px'}, 500, plusOne);
 			$('#layer-control').hide();
+			$('#map').css({left:'30px'}, 500);
 			$('#horz').hide();
 			$('#vert').show();
 		}

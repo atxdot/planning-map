@@ -1,97 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset=utf-8 />
+  <meta charset=utf-8 />
 
-    <title>TxDOT AUS</title>
+  <title>TxDOT AUS</title>
 
-    <meta name='viewport' content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name='viewport' content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <!-- Load jQuery -->
-	<script src="js/jquery.min.js"></script>
-    <!-- Load jQuery UI -->
-    <script src="js/jquery-ui.min.js"></script>
-    <!-- Load jQuery UI Touch Punch -->
-    <script src="js/jquery.ui.touch-punch.min.js"></script>
-    <!-- Load Bootstrap -->
-    <link rel="stylesheet" href="style/bootstrap.min.css" />
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Load Leaflet from CDN-->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
-	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
-    <!-- Load Esri Leaflet from CDN -->
-    <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
-	<!-- Leaflet marker cluster plugin -->
-	<link rel="stylesheet" href="style/MarkerCluster.Default.css">
-	<link rel="stylesheet" href="style/MarkerCluster.css">
-	<script src="js/leaflet.markercluster.js"></script>
-	<script src="https://unpkg.com/esri-leaflet-cluster@2.0.0"></script>
-    <!-- Load my style content -->
-    <link rel="stylesheet" href="style/style.css" />
-    <!-- Load Font Awesome -->
-    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
-    <!-- Load local leaflet zoomhome content -->
-    <link rel="stylesheet" href="style/leaflet.zoomhome.css"/>
-    <script src="js/leaflet.zoomhome.min.js"></script>
-    <!-- Load Easy Button -->
-    <link rel="stylesheet" href="style/easy-button.css">
-    <script src="js/easy-button.js"></script>
-    <!-- Load Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <!-- Load ESRI Leaflet Geocoder -->
-    <link rel="stylesheet" href="style/esri-leaflet-geocoder.css">
-    <script src="https://unpkg.com/esri-leaflet-geocoder@2.1.4"></script>
+  <!-- Load jQuery -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Load jQuery UI -->
+  <script src="js/jquery-ui.min.js"></script>
+  <!-- Load jQuery UI Touch Punch -->
+  <script src="js/jquery.ui.touch-punch.min.js"></script>
+  <!-- Load Bootstrap -->
+  <link rel="stylesheet" href="style/bootstrap.min.css" />
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Load Leaflet from CDN-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="https://unpkg.com/esri-leaflet@2.0.3"></script>
+  <!-- Leaflet marker cluster plugin -->
+  <link rel="stylesheet" href="style/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="style/MarkerCluster.css">
+  <script src="js/leaflet.markercluster.js"></script>
+  <script src="https://unpkg.com/esri-leaflet-cluster@2.0.0"></script>
+  <!-- Load my style content -->
+  <link rel="stylesheet" href="style/style.css" />
+  <!-- Load Font Awesome -->
+  <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+  <!-- Load local leaflet zoomhome content -->
+  <link rel="stylesheet" href="style/leaflet.zoomhome.css"/>
+  <script src="js/leaflet.zoomhome.min.js"></script>
+  <!-- Load Easy Button -->
+  <link rel="stylesheet" href="style/easy-button.css">
+  <script src="js/easy-button.js"></script>
+  <!-- Load Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <!-- Load ESRI Leaflet Geocoder -->
+  <link rel="stylesheet" href="style/esri-leaflet-geocoder.css">
+  <script src="https://unpkg.com/esri-leaflet-geocoder@2.1.4"></script>
 </head>
 
 <body>
 
-    <div id="title" class="container-fluid">
-        <img src="style/images/White_LOGO_TxDOT.png" class="txdot-img" alt="TxDOT">
-        <h4 id="title-txt" class="text-center">TxDOT AUS District Planning</h4>
+  <div id="title" class="container-fluid">
+    <img src="style/images/White_LOGO_TxDOT.png" class="txdot-img" alt="TxDOT">
+    <h4 id="title-txt" class="text-center">TxDOT AUS District Planning</h4>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="toc" class="leaflet-bar">
+    <div id="arrow">&#9656;</div>
+
+    <div id="vert">
+      <h6>L<br>
+        A<br>
+        Y<br>
+        E<br>
+        R<br>
+        S</h6>
+      </div>
+
+      <div id="layer-control" class="container-fluid">
+        <p><b>TxDOT Projects</b><br>
+          <input type="checkbox" id="ausConstruct" class="check"> Construction Scheduled <br>
+          <input type="checkbox" id="ausFinalize" class="check"> Finalizing for Construction<br>
+          <input type="checkbox" id="ausDevelop" class="check"> Under Development<br>
+          <input type="checkbox" id="ausPlan" class="check"> Long Term Planning<br>
+        </p>
+        <p>
+          <input type="checkbox" id="aadt" class="check"><b> AADT Counts</b><br>
+          <img src="style/images/redCircle.png" height="12" width="12"><br>
+        </p>
+        <p>
+          <input type="checkbox" id="mostCongested" class="check"><b> Top 100</b><br>
+        </p>
+        <p>
+          <input type="checkbox" id="ausCounty" class="check"><b> County Boundaries</b><br>
+        </p>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+        <input type="checkbox" id="" class="check"><b> Placeholder</b><br>
+      </div>
     </div>
 
-    <div id="map"></div>
-
-    <div id="toc" class="leaflet-bar">
-		<div id="arrow">&#9656;</div>
-		
-		<div id="vert">
-		    <h6>L<br>
-        		A<br>
-        		Y<br>
-        		E<br>
-        		R<br>
-				S</h6>
-		</div>
-
-		<div id="layer-control" class="container-fluid">
-			<p><b>TxDOT Projects</b><br>
-				<input type="checkbox" id="ausConstruct" class="check"> Construction Scheduled <br>
-				<input type="checkbox" id="ausFinalize" class="check"> Finalizing for Construction<br>
-				<input type="checkbox" id="ausDevelop" class="check"> Under Development<br>
-				<input type="checkbox" id="ausPlan" class="check"> Long Term Planning<br>
-			</p>
-			<p>
-				<input type="checkbox" id="aadt" class="check"><b> AADT Counts</b><br>
-				<img src="style/images/redCircle.png" height="12" width="12"><br>
-			</p>
-			<p>
-				<input type="checkbox" id="mostCongested" class="check"><b> Top 100</b><br>
-			</p>
-			<p>
-				<input type="checkbox" id="ausCounty" class="check"><b> County Boundaries</b><br>
-			</p>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-			<input type="checkbox" id="" class="check"><b> Placeholder</b><br>
-		</div>
-	</div>
-
     <script src="js/map.js"></script>
-</body>
-</html>
+  </body>
+  </html>
