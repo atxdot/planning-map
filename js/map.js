@@ -178,7 +178,7 @@ var baseMaps = {
 
 L.control.layers(baseMaps).addTo(map);
 
-//jquery for interactive table of contents - custom layer control
+//jquery for interactive & responsive table of contents - custom layer control
 function plusOne(){
 	$('#arrow').css({transform:'scaleX(1)'});
 }
@@ -200,13 +200,13 @@ $(document).ready(function(){
 		if($('#toc').css('width')=='30px'){
 			$('#toc').animate({width:'220px'}, 500, minusOne);
 			$('#layer-control').show();
-			$('#map').css({left:'220px'}, 500);
+			$('#map').animate({width:'50%'}, 500);
 			$('#horz').show();
 			$('#vert').hide();
 		}else{
 			$('#toc').animate({width:'30px', bottom:'0px'}, 500, plusOne);
 			$('#layer-control').hide();
-			$('#map').css({left:'30px'}, 500);
+			$('#map').animate({width:'75%'}, 500);
 			$('#horz').hide();
 			$('#vert').show();
 		}
