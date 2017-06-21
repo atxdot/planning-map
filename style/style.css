@@ -2,150 +2,150 @@ html,body { margin: 0; padding: 0; }
 
 #map { position: absolute; top: 55px; bottom: 0; right: 0; left: 0; }
 
-#title { 
-    position: absolute;
-    height: 55px; 
-    width: 100%; 
-    background-color: #14385c;
-	border: 2px solid gray;
-	border-radius: 5px;
+#title {
+  position: absolute;
+  height: 55px;
+  width: 100%;
+  background-color: #14385c;
+  border: 2px solid gray;
+  border-radius: 5px;
 }
 
 
 h4 {
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 30px;
-    color: #fff;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 30px;
+  color: #fff;
 }
 
 h6 {
-	font-family: 'Ubuntu', sans-serif;
-	font-size: 14px;
-	color: #fff;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  color: #fff;
 }
 
 hr .county {
-	width: 100%;
-	height: 3px;
-	color: #734d26;
+  width: 100%;
+  height: 3px;
+  color: #734d26;
 }
 
 #title-txt {
-	text-shadow: 2px 2px #000;
+  text-shadow: 2px 2px #000;
 }
 
 .txdot-img {
-    float: left;
-	padding-top: 1px;
-	height: 49px;
-	width: 71px;
+  float: left;
+  padding-top: 1px;
+  height: 49px;
+  width: 71px;
 }
 
 #bm {
-	color: white;
-    position: absolute;
-    top: 65px;
-    right: 10px;
-    z-index: 400;
-    background: #14385c;
-	border: 2px solid gray;
-	border-radius: 5px;
-    padding: 5px 5px 5px 5px;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 14;
-	box-shadow: 3px 3px 5px #000;
+  color: white;
+  position: absolute;
+  top: 65px;
+  right: 10px;
+  z-index: 400;
+  background: #14385c;
+  border: 2px solid gray;
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14;
+  box-shadow: 3px 3px 5px #000;
 }
 
-#county { 
-	color: black;
-	margin-bottom: 5px; 
+#county {
+  color: black;
+  margin-bottom: 5px;
 }
 
 #arrow {
-	font-size: 25px;
-	color: white;
-	cursor: pointer;
-	position: relative;
-	left: -7px;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+  position: relative
+  left: -5px;
 }
 
 #layer-control {
-	background: #fff;
-	left: 5px;
-	height: 195px;
-	text-align: left;
-	color: #000;
-	display: none;
-	overflow-y: auto;
+  background: #fff;
+  left: 5px;
+  height: 195px;
+  text-align: left;
+  color: #000;
+  display: none;
+  overflow-y: auto;
 }
 
 #legend-item {
-	text-align: left;
-	font-size: 2;
-	font-family: 'Ubuntu', sans-serif;
+  text-align: left;
+  font-size: 2;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 #vert {
-	color: white;
+  color: white;
 }
 
 #horz {
-	color: white;
-	display: none;
+  color: white;
+  display: none;
 }
 
 #toc {
-    position: absolute;
-    top: 226px;
-    left: 10px;
-    z-index: 400;
-    background: #14385c;
-	border: 2px solid gray;
-	border-radius: 5px;
-    width: 33px;
-    height: 175px;
-    padding: 10px;
-    font-family: 'Ubuntu', sans-serif;
-	box-shadow: 3px 3px 5px #000;
-	cursor: default;
+  position: absolute;
+  top: 226px;
+  left: 10px;
+  z-index: 400;
+  background: #14385c;
+  border: 2px solid gray;
+  border-radius: 5px;
+  width: 33px;
+  height: 175px;
+  padding: 10px;
+  font-family: 'Ubuntu', sans-serif;
+  box-shadow: 3px 3px 5px #000;
+  cursor: default;
 }
 
 .label {
-	color: #734d26;
-	font-size: small;
-	font-weight: 700;
-	text-transform: uppercase;
-	text-align: center;
-	margin-top: -1em;
+  color: #734d26;
+  font-size: small;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: -1em;
 }
 
 .label div {
-	position: relative;
-	left: -50%;
-	text-shadow: 1px 1px 1px #fff;
+  position: relative;
+  left: -50%;
+  text-shadow: 1px 1px 1px #fff;
 }
 
 @media screen and (max-width: 1000px) {
-    h4 {
-        font-size: 20px;
-        font-family: 'Ubuntu', sans-serif;
-        font-weight: 300;
-		padding-top: 3px;
-    }
+  h4 {
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    padding-top: 3px;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    h4 {
-        font-size: 15px;
-        font-family: 'Ubuntu', sans-serif;
-        font-weight: 300;
-		padding-top: 5px;
-    }
+  h4 {
+    font-size: 15px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    padding-top: 5px;
+  }
 }
 
 @media (max-height:550px) {
-	#toc {
-		top: 65px;
-		left: 55px;
-	}
+  #toc {
+    top: 65px;
+    left: 55px;
+  }
 }
