@@ -46,11 +46,11 @@ hr .county {
 }
 
 #arrow {
-  font-size: 32px;
+  font-size: 25px;
   color: white;
   cursor: pointer;
-  position: relative;
-  left: -7px;
+  position: relative
+  left: -5px;
 }
 
 #layer-control {
