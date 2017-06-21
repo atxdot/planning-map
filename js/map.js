@@ -12,12 +12,12 @@ map.fitBounds(bounds);
 //load custom txdot basemap as initial base
 var spm = L.esri.tiledMapLayer({
 	url: 'https://tiles.arcgis.com/tiles/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Statewide_Planning_Map/MapServer'
-});
+}).addTo(map);
 
 //openstreetmap variable
 var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+});
 
 //carto basemap variable
 var positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
