@@ -200,13 +200,13 @@ $(document).ready(function(){
 		if($('#toc').css('width')=='30px'){
 			$('#toc').animate({width:'220px'}, 500, minusOne);
 			$('#layer-control').show();
-			$('#map').animate({width:'50%'}, 500);
+			$('#map').animate({left:'220px'}, 500, "swing");
 			$('#horz').show();
 			$('#vert').hide();
 		}else{
 			$('#toc').animate({width:'30px', bottom:'0px'}, 500, plusOne);
 			$('#layer-control').hide();
-			$('#map').animate({width:'75%'}, 500);
+			$('#map').animate({left:'30px'}, 500, "swing");
 			$('#horz').hide();
 			$('#vert').show();
 		}
