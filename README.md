@@ -4,4 +4,4 @@ AUS TPD Planning / Project Delivery simple mapping application built from scratc
 
 This project is not final and I am still testing.
 
-Access the map at https://atxdot.github.io/planning-map
+Access the map at https://johnwhaney.com/planning-map
